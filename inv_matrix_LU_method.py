@@ -94,7 +94,7 @@ def is_nondegenerate_matrix(matrix: np.ndarray):
     """
     docstring
     """
-    
+
     if is_det_not_null(matrix):
         n = matrix.shape[0]
 
@@ -103,9 +103,9 @@ def is_nondegenerate_matrix(matrix: np.ndarray):
             if np.linalg.det(matrix_) == 0:
                 print("matrix is degenerate")
                 return False
-        
+
         return True
-    
+
     return False
 
 
@@ -114,19 +114,27 @@ def inv_lu(matrix):
     docstring
     """
     if is_nondegenerate_matrix(matrix):
-        pass
+        matrixL, matrixU = match_matrixLU(matrix)
 
-    raise ValueError("Не корректная матрица")
+        matrix_inv = np.dot(np.linalg.inv(matrixU), np.linalg.inv(matrixL))
+
+        return matrix_inv
+
+    raise ValueError("Некорректная матрица")
 
 
 def main():
+    a = np.array([[2, 5, 7],
+                  [6, 3, 4],
+                  [5, -2, -3]])
+    
 
-    
-    
-    
-    
-    
-    pass
+    a_inv = inv_lu(a)
+    a_inv_test = np.linalg.inv(a)
+
+    print(a_inv, "\n")
+    print(a_inv_test, "\n")
+
 
 if __name__ == "__main__":
     main()
