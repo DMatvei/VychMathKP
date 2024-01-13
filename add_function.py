@@ -96,8 +96,12 @@ def check_multiple_original_inv(matrix: np.ndarray, matrix_inv : np.ndarray):
 
 
 def check_multiple_det(matrix : np.ndarray, matrix_inv: np.ndarray):
-    
-    return np.dot(np.linalg.det(matrix), np.linalg.det(matrix_inv))
+    print("умножение определителей")
+    app_value = np.dot(np.linalg.det(matrix), np.linalg.det(matrix_inv))
+    absolute_error = abs(1 - np.dot(np.linalg.det(matrix), np.linalg.det(matrix_inv)))
+    print(f'Абсолютная погрешность: {absolute_error}')
+    print(f'Относительная погрешность: {(absolute_error / app_value) * 100} %')
+    return app_value
     
 
 
