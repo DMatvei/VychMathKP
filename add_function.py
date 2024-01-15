@@ -105,6 +105,15 @@ def check_multiple_det(matrix : np.ndarray, matrix_inv: np.ndarray):
     
 
 
+
+
+def match_Cond(matrix, matrix_inv):
+    """
+    docstring
+    """
+    return np.linalg.norm(matrix) * np.linalg.norm(matrix_inv)
+
+
 def main():
     for i in range(3, 11):
         # print(i)
