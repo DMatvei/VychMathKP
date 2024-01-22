@@ -84,23 +84,25 @@ def output_for_matrix(matrix : np.ndarray):
 
         string_ += string_matrix + ", \n"
     string_ = string_[:-3] + "])"
-    
+    with open('matrix.txt', 'w') as f:
+        f.write(string_)
 
 
-    print(string_)
+
+    # print(string_)
 
 
 def check_multiple_original_inv(matrix: np.ndarray, matrix_inv : np.ndarray):
-
-    return np.dot(matrix, matrix_inv)
+    
+    return np.linalg.norm(np.dot(matrix, matrix_inv) - np.eye(matrix.shape[0]), -np.inf)
 
 
 def check_multiple_det(matrix : np.ndarray, matrix_inv: np.ndarray):
-    print("умножение определителей")
+    # print("умножение определителей")
     app_value = np.dot(np.linalg.det(matrix), np.linalg.det(matrix_inv))
-    absolute_error = abs(1 - np.dot(np.linalg.det(matrix), np.linalg.det(matrix_inv)))
-    print(f'Абсолютная погрешность: {absolute_error}')
-    print(f'Относительная погрешность: {(absolute_error / app_value) * 100} %')
+    # absolute_error = np.linalg.norm(np.dot(matrix, matrix_inv) - np.eye(matrix.shape[0])) / (np.linalg.norm(matrix) * np.linalg.norm(matrix_inv))
+    # print(f'Абсолютная погрешность: {absolute_error}')
+    # print(f'Относительная погрешность: {(absolute_error / app_value) * 100} %')
     return app_value
     
 
@@ -120,8 +122,18 @@ def main():
         output_for_matrix(gen_matrix_for_LU(i))
         print("\n \n")
 
+def main2():
+    n = 100
+    a = gen_matrix(n)
+    count_ = 1
+    while(np.linalg.cond(a) > 53 and count_ < 10000):
+        a = gen_matrix(n)
+        count_ += 1
+    print(count_)
+    print(np.linalg.cond(a))
+    output_for_matrix(a)
 
 
 
 if __name__ == "__main__":
-    main()
+    main2()
